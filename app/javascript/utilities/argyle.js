@@ -16,7 +16,7 @@ export function loadArgyle() {
 export function initializeArgyle(Argyle, userToken, callbacks) {
   return Argyle.create({
     userToken,
-    sandbox: metaContent('argyle_sandbox'), // Set to false for production environment.
+    sandbox: metaContent('argyle_sandbox') === "true", // Set to false for production environment.
     ...callbacks
   });
 }
