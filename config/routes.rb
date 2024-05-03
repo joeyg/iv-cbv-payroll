@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   namespace :api do
     scope :argyle do
       post '/tokens' => 'argyle#update_token'
+      get '/employers' => 'argyle#search_employers'
     end
   end
 end

@@ -10,6 +10,13 @@ class Api::ArgyleController < ApplicationController
     render json: { status: :ok, token: new_token['user_token'] }
   end
 
+  def search_employers
+    res = Net::HTTP.get(URI.parse("#{CbvFlowsController::ITEMS_ENDPOINT}?q=#{params['q']}"), {"Authorization" => "Basic #{Rails.application.credentials.argyle[:api_key]}"})
+    parsed = JSON.parse(res)
+
+    render json: { status: :ok, employers: parsed['results'] }
+  end
+
   private
 
   def refresh_token(argyle_user_id)
