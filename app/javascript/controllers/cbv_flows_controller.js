@@ -2,10 +2,10 @@ import { Controller } from "@hotwired/stimulus"
 import * as ActionCable from '@rails/actioncable'
 
 import metaContent from "../utilities/meta";
-import { loadArgyle, initializeArgyle, updateToken } from "../utilities/argyle"
+import { loadArgyle, initializeArgyle, updateToken, fetchItems } from "../utilities/argyle"
 
-function toOptionHTML({ value }) {
-  return `<option value='${value}'>${value}</option>`;
+function toOptionHTML({ id, name }) {
+  return `<option value='${id}'>${name}</option>`;
 }
 
 export default class extends Controller {
@@ -56,7 +56,10 @@ export default class extends Controller {
 
   search(event) {
     const input = event.target.value;
-    this.optionsTarget.innerHTML = [this.optionsTarget.innerHTML, toOptionHTML({ value: input })].join('');
+
+    fetchItems(input).then((results) => {
+      this.optionsTarget.innerHTML = results.items.map(item => (toOptionHTML({ id: item.id, name: item.name }))).join('');
+    });
   }
 
   select(event) {

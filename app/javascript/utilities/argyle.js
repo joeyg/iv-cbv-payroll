@@ -3,6 +3,7 @@ import metaContent from "./meta";
 import CSRF from './csrf';
 
 const ARGYLE_TOKENS_REFRESH = '/api/argyle/tokens';
+const ARGYLE_ITEMS = '/api/argyle/items';
 
 export function loadArgyle() {
   return new Promise((resolve, reject) => {
@@ -33,4 +34,8 @@ export const updateToken = async updateToken => {
   }).then(response => response.json());
 
   updateToken(response.token);
+}
+
+export const fetchItems = (q) => {
+  return fetch(`${ARGYLE_ITEMS}?q=${q}`).then(response => response.json());
 }
