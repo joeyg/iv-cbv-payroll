@@ -29,7 +29,7 @@ class Api::ArgyleController < ApplicationController
   end
 
   def fetch_employers(query)
-    res = Net::HTTP.get(URI.parse("#{ITEMS_ENDPOINT}?q=#{query}"), {"Authorization" => "Basic #{Rails.application.credentials.argyle[:api_key]}"})
+    res = Net::HTTP.get(URI.parse("#{ITEMS_ENDPOINT}?mapping_status=verified,mapped&q=#{query}"), {"Authorization" => "Basic #{Rails.application.credentials.argyle[:api_key]}"})
     parsed = JSON.parse(res)
 
     parsed['results']
