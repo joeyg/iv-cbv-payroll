@@ -63,9 +63,9 @@ export default class extends Controller {
   }
 
   select(event) {
-    this.selection = event.detail;
-
-    this.continueTarget.disabled = false;
+    this.selection = null || event.detail.value;
+    console.log(this.selection);
+    this.continueTarget.disabled = !this.selection;
   }
 
   submit(event) {
@@ -73,7 +73,7 @@ export default class extends Controller {
 
     loadArgyle()
       .then(Argyle => initializeArgyle(Argyle, this.argyleUserToken, {
-        items: [this.selection.value],
+        items: [this.selection],
         onAccountConnected: this.onSignInSuccess.bind(this),
         onAccountError: this.onAccountError.bind(this),
         // Unsure what these are for!
