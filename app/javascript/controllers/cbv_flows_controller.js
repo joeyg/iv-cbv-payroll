@@ -5,11 +5,36 @@ import metaContent from "../utilities/meta";
 import { loadArgyle, initializeArgyle, updateToken, fetchItems } from "../utilities/argyle"
 
 function toOptionHTML({ id, name }) {
-  return `<option value='${id}'>${name}</option>`;
+  return `
+    <li class="grid-row">
+      <div class="grid-col">
+        <h4>${name}</h4>
+        <p>San Francisco, CA</p>
+      </div>
+      <div class="grid-col flex-justify">
+        <button
+          data-action="click->cbv-flows#select"
+          class="usa-button usa-button--outline"
+          type="button"
+        >
+          Select
+        </button>
+      </div>
+    </li>
+  `;
 }
 
 export default class extends Controller {
-  static targets = ["options", "continue", "userAccountId", "fullySynced", "form", "modal"];
+  static targets = [
+    /*"options"*/,
+    "results",
+    "searchTerms",
+    "continue",
+    "userAccountId",
+    "fullySynced",
+    "form",
+    "modal"
+  ];
 
   selection = null;
 
@@ -38,7 +63,7 @@ export default class extends Controller {
         if (data.event === 'paystubs.fully_synced' || data.event === 'paystubs.partially_synced') {
           this.fullySynced = true;
 
-          this.formTarget.submit();
+          // this.formTarget.submit();
         }
       }
     });
@@ -54,26 +79,25 @@ export default class extends Controller {
     console.log(event);
   }
 
-  search(event) {
-    const input = event.target.value;
+  search(e) {
+    e.preventDefault();
+    const input = this.searchTermsTarget.value;
 
     fetchItems(input).then((results) => {
-      this.optionsTarget.innerHTML = results.items.map(item => (toOptionHTML({ id: item.id, name: item.name }))).join('');
+      this.resultsTarget.innerHTML = results.items.map(item => (toOptionHTML({ id: item.id, name: item.name }))).join('');
     });
   }
 
   select(event) {
     this.selection = null || event.detail.value;
-    console.log(this.selection);
-    this.continueTarget.disabled = !this.selection;
+    this.submit();
+    // this.continueTarget.disabled = !this.selection;
   }
 
-  submit(event) {
-    event.preventDefault();
-
+  submit() {
     loadArgyle()
       .then(Argyle => initializeArgyle(Argyle, this.argyleUserToken, {
-        items: [this.selection],
+        items: ['item_000002102', 'item_000002104'],
         onAccountConnected: this.onSignInSuccess.bind(this),
         onAccountError: this.onAccountError.bind(this),
         // Unsure what these are for!
