@@ -1,21 +1,28 @@
 <%= turbo_frame_tag 'employers' do %>
   <% @employers.each do |employer| %>
-    <div class="grid-row grid-gap">
-      <div class="grid-col-1 mobile:grid-col usa-identifier__logo">
-        <img class="usa-identifier__logo-img" src="<%= employer['logo_url'] %>" />
-      </div>
-      <div class="grid-col-4 mobile:grid-col">
-        <h4><%= employer['name'] %></h4><span><%= employer['kind'] %></span>
-      </div>
-      <div class="grid-col-fill mobile:grid-col">
-        <button
-          data-action="click->cbv-flows#select"
-          data-item-id="<%= employer['id'] %>"
-          class="usa-button usa-button--outline"
-          type="button"
-        >
-          Select
-        </button>
+    <div class="usa-card usa-card--flag usa-card--media-right flex-1">
+      <div class="usa-card__container">
+        <div class="usa-card__header">
+          <h2 class="usa-card__heading"><%= employer['name'] %></h2>
+        </div>
+        <div class="display-none usa-card__media usa-card__media--inset">
+          <div class="usa-card__img">
+            <img
+              src="<%= employer['logo_url'] %>"
+              alt="A placeholder image"
+            />
+          </div>
+        </div>
+        <div class="usa-card__footer">
+          <button
+            data-action="click->cbv-flows#select"
+            data-item-id="<%= employer['id'] %>"
+            class="usa-button usa-button--outline"
+            type="button"
+          >
+            Select
+          </button>
+        </div>
       </div>
     </div>
   <% end %>
