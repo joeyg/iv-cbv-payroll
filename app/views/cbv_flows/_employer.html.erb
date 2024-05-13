@@ -1,0 +1,22 @@
+<%= turbo_frame_tag 'employers' do %>
+  <% @employers.each do |employer| %>
+    <div class="grid-row grid-gap">
+      <div class="grid-col-1 mobile:grid-col usa-identifier__logo">
+        <img class="usa-identifier__logo-img" src="<%= employer['logo_url'] %>" />
+      </div>
+      <div class="grid-col-4 mobile:grid-col">
+        <h4><%= employer['name'] %></h4><span><%= employer['kind'] %></span>
+      </div>
+      <div class="grid-col-fill mobile:grid-col">
+        <button
+          data-action="click->cbv-flows#select"
+          data-item-id="<%= employer['id'] %>"
+          class="usa-button usa-button--outline"
+          type="button"
+        >
+          Select
+        </button>
+      </div>
+    </div>
+  <% end %>
+<% end %>

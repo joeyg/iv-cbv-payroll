@@ -10,7 +10,7 @@ class CbvFlowsController < ApplicationController
 
   def employer_search
     @argyle_user_token = fetch_and_store_argyle_token
-    @companies = fetch_employers
+    @employers = search_params[:query] ? fetch_employers(search_params[:query]) : []
   end
 
   def summary
@@ -71,8 +71,8 @@ class CbvFlowsController < ApplicationController
     parsed['user_token']
   end
 
-  def fetch_employers
-    res = Net::HTTP.get(URI.parse(ITEMS_ENDPOINT), {"Authorization" => "Basic #{Rails.application.credentials.argyle[:api_key]}"})
+  def fetch_employers(query = '')
+    res = Net::HTTP.get(URI.parse("#{ITEMS_ENDPOINT}?mapping_status=verified,mapped&q=#{query}"), {"Authorization" => "Basic #{Rails.application.credentials.argyle[:api_key]}"})
     parsed = JSON.parse(res)
 
     parsed['results']
@@ -83,5 +83,9 @@ class CbvFlowsController < ApplicationController
     parsed = JSON.parse(res)
 
     parsed['results']
+  end
+
+  def search_params
+    params.permit(:query)
   end
 end

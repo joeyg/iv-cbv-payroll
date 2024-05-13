@@ -7,19 +7,18 @@
 
 <div data-controller="cbv-flows">
   <h3 class="site-preview-heading">Search for an employer</h3>
-  <%= form_with url: next_path, method: :post, class: 'usa-search usa-search--big', html: { role: 'search' }, data: { 'cbv-flows-target': "form" } do |f| %>
-    <label class="usa-sr-only" for="employer-search">
-      Search for your employer
-    </label>
-    <input
-      class="usa-input margin-bottom-3"
-      type="search"
-      id="employer-search"
-      name="employer-search"
-      data-cbv-flows-target="searchTerms"
-    />
+  <%= form_with url: cbv_flow_employer_search_path, method: :get, class: 'usa-search usa-search--big', html: { role: 'search' }, data: { turbo_frame: 'employers', turbo_action: 'advance', 'cbv-flows-target': "form" } do |f| %>
+    <%= f.label :query, "Search for your employer", class: "usa-sr-only" %>
+    <%= f.text_field :query, class: "usa-input", type: 'search', data: { "cbv-flows-target": "searchTerms" } %>
+    <a
+      href="#example-modal-3"
+      class="display-none"
+      aria-controls="example-modal-3"
+      data-open-modal
+      data-cbv-flows-target="modal"
+    ></a>
+    <input type="hidden" name="user[account_id]" data-cbv-flows-target="userAccountId" />
     <button
-      data-action="click->cbv-flows#search"
       class="usa-button"
       type="submit"
     >
@@ -30,10 +29,10 @@
     </button>
   <% end %>
 
-  <h3 class="site-preview-heading margin-0">Results</h3>
-  <ul class="usa-list usa-list--unstyled" data-cbv-flows-target="results">
-    <!-- Results will be added here -->
-  </ul>
+  <h3 class="site-preview-heading margin-bottom-2">Results</h3>
+  <div class="grid-container">
+    <%= render partial: 'employer', locals: { employer: @employers } %>
+  </div>
 
   <div class="margin-y-3">
     <div
