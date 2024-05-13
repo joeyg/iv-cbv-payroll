@@ -6,13 +6,16 @@ import "@uswds/uswds"
 
 // make sure USWDS components are wired to their behavior after a Turbo navigation
 import components from "@uswds/uswds/src/js/components"
-let initialLoad = true;
+
 document.addEventListener("turbo:load", () => {
-  if (initialLoad) {
+  this.initialLoad = true;
+
+  if (this.initialLoad) {
     // initial domready is handled by `import "uswds"` code
-    initialLoad = false
-    return
+    this.initialLoad = false
+    return;
   }
+  console.log('does it escape')
   const target = document.body
   Object.keys(components).forEach((key) => {
     const behavior = components[key]

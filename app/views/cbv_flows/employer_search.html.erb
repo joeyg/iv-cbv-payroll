@@ -11,9 +11,9 @@
     <%= f.label :query, "Search for your employer", class: "usa-sr-only" %>
     <%= f.text_field :query, class: "usa-input", type: 'search', data: { "cbv-flows-target": "searchTerms" } %>
     <a
-      href="#example-modal-3"
+      href="#data-fetching-modal"
       class="display-none"
-      aria-controls="example-modal-3"
+      aria-controls="data-fetching-modal"
       data-open-modal
       data-cbv-flows-target="modal"
     ></a>
@@ -34,11 +34,10 @@
   <h3 class="site-preview-heading margin-bottom-2">Results</h3>
   <%= render partial: 'employer', locals: { employer: @employers } %>
 
-
   <div class="margin-y-3">
     <div
       class="usa-modal"
-      id="example-modal-3"
+      id="data-fetching-modal"
       aria-labelledby="modal-3-heading"
       aria-describedby="modal-3-description"
       data-force-action
