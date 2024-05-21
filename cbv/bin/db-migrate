@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e
 
+echo "Altering default privileges..."
+./rails dbconsole -e production <<EOF
+ALTER DEFAULT PRIVILEGES GRANT ALL ON TABLES TO app;
+EOF
+
 echo "Running database migrations..."
-bundle exec rails db:migrate
+./rails db:migrate
 echo "Database migrations completed."
