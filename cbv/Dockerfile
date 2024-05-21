@@ -148,4 +148,4 @@ RUN useradd rails --create-home --shell /bin/bash && \
     chown -R rails:rails db log tmp
 USER rails:rails
 
-CMD bundle exec puma --pidfile /rails/tmp/puma-server.pid
+CMD bundle exec puma -b tcp://127.0.0.1:8000 --pidfile /rails/tmp/puma-server.pid
