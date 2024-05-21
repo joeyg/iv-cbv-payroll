@@ -139,13 +139,9 @@ RUN chmod +x /usr/bin/db-migrate
 COPY --from=release-build /usr/local/bundle /usr/local/bundle
 COPY --from=release-build /rails /rails
 
-# Copy the docker-rails.sh script from the parent directory into the container
-COPY .docker/entrypoints/production.sh /usr/bin/
-RUN chmod +x /usr/bin/production.sh
-
 # Run and own only the runtime files as a non-root user for security
 RUN useradd rails --create-home --shell /bin/bash && \
     chown -R rails:rails db log tmp
 USER rails:rails
 
-CMD bundle exec puma -b tcp://127.0.0.1:8000 --pidfile /rails/tmp/puma-server.pid
+CMD bundle exec puma --pidfile /rails/tmp/puma-server.pid
