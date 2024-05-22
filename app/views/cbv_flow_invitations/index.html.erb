@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<%= link_to "New cbv flow invitation", new_cbv_flow_invitation_path, class: 'usa-button' %>
+
+<h1>Cbv flow invitations</h1>
+
+<div id="cbv_flow_invitations" class="grid-container">
+  <% @cbv_flow_invitations.each do |cbv_flow_invitation| %>
+    <%= render cbv_flow_invitation %>
+    <p>
+      <%= link_to "View", cbv_flow_invitation %>
+    </p>
+  <% end %>
+</div>
+

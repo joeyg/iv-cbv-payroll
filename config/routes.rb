@@ -1,6 +1,8 @@
 require "sidekiq/web"
 
 Rails.application.routes.draw do
+  resources :cbv_flow_invitations
+
   if Rails.env.development?
     mount Sidekiq::Web => "/sidekiq"
   end

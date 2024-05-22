@@ -1,0 +1,17 @@
+<div class="grid-row" id="<%= dom_id cbv_flow_invitation %>">
+  <div class="grid-col">
+    Created: <%= cbv_flow_invitation.created_at.strftime("%B %d, %Y @ %H:%M") %>
+  </div>
+  <div class="grid-col">
+    Case Number: <%= cbv_flow_invitation.cbv_flow&.case_number || "none"  %>
+  </div>
+  <div class="grid-col">
+    Invitation opened: <%= cbv_flow_invitation.has_visited? %>
+  </div>
+</div>
+<div class="grid-row">
+  <label for="name">Invitation Link</label>
+
+  <input type="text" id="name" name="name" minlength="4" maxlength="8" size="100" value="<%= cbv_flow_invitation.to_url %>" />
+</div>
+

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @cbv_flow_invitation %>
+
+<div>
+  <%= link_to "Edit this cbv flow invitation", edit_cbv_flow_invitation_path(@cbv_flow_invitation) %> |
+  <%= link_to "Back to cbv flow invitations", cbv_flow_invitations_path %>
+
+  <%= button_to "Destroy this cbv flow invitation", @cbv_flow_invitation, method: :delete %>
+</div>
