@@ -46,7 +46,7 @@ RUN apt-get update -qq && \
 RUN npm install -g yarn
 
 # Install npm packages
-COPY package.json yarn.json ./
+COPY package.json yarn.lock ./
 
 # Install npm packages
 RUN yarn install
