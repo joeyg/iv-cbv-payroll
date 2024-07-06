@@ -22,3 +22,8 @@ output "application_log_stream_prefix" {
 output "migrator_role_arn" {
   value = module.service.migrator_role_arn
 }
+
+output "newrelic_integration_role_arn" {
+  description = "ARN of the IAM role for New Relic integration"
+  value       = module.new_relic.integration_role_arn
+}

@@ -11,6 +11,10 @@ locals {
     DOCKERIZED               = "true"
     # LOG_LEVEL               = "info"
     # DB_CONNECTION_POOL_SIZE = 5
+
+    NEW_RELIC_APP_NAME = "${var.app_name}-${var.environment}"
+    NEW_RELIC_DISTRIBUTED_TRACING_ENABLED = "true"
+    NEW_RELIC_LOG_LEVEL = "info"
   }
 
   # Configuration for secrets
