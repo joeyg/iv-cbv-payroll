@@ -48,6 +48,10 @@ locals {
     {
       name           = "NEWRELIC_KEY"
       ssm_param_name = "/service/${var.app_name}-${var.environment}/newrelic-key"
+    },
+    {
+      name           = "NEWRELIC_ACCOUNT_ID"
+      ssm_param_name = "/service/${var.app_name}-${var.environment}/newrelic-account-id"
     }
   ]
 }

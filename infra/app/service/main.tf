@@ -214,5 +214,5 @@ module "new_relic" {
   source              = "../../modules/new-relic"
   app_name            = module.app_config.app_name
   environment         = var.environment_name
-  newrelic_account_id = var.newrelic_account_id
+  newrelic_account_id = lookup(local.service_config.secrets, "NEWRELIC_ACCOUNT_ID")
 }
