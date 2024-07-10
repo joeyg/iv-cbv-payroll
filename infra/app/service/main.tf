@@ -45,10 +45,8 @@ locals {
   # each object has a name and ssm_param_name
   # we need to get the value of the ssm_param_name
   # and set the value of the name to the value of the ssm_param_name
-  secrets = {
-    for secret in local.service_config.secrets :
-    secret.name => lookup(local.service_config.secrets, secret.ssm_param_name)
-  }
+  # Convert the set of secrets to a map
+  secrets_map = { for secret in local.service_config.secrets : secret.name => secret.ssm_param_name }
 }
 
 terraform {
@@ -223,5 +221,5 @@ module "new_relic" {
   source              = "../../modules/new-relic"
   app_name            = module.app_config.app_name
   environment         = var.environment_name
-  newrelic_account_id = lookup(local.secrets, "NEWRELIC_ACCOUNT_ID")
+  newrelic_account_id = lookup(local.secrets_map, "NEWRELIC_ACCOUNT_ID")
 }
