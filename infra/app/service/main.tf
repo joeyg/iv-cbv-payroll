@@ -212,14 +212,15 @@ module "storage" {
 }
 
 module "email" {
-  source = "../../modules/email"
+  source             = "../../modules/email"
   hosted_zone_domain = local.network_config.domain_config.hosted_zone
   domain             = local.service_config.domain_name
 }
 
 module "new_relic" {
-  source              = "../../modules/new-relic"
-  app_name            = module.app_config.app_name
-  environment         = var.environment_name
-  newrelic_account_id = lookup(local.secrets_map, "NEWRELIC_ACCOUNT_ID")
+  source               = "../../modules/new-relic"
+  app_name             = module.app_config.app_name
+  environment          = var.environment_name
+  newrelic_license_key = lookup(local.secrets_map, "NEWRELIC_KEY")
+  newrelic_account_id  = lookup(local.secrets_map, "NEWRELIC_ACCOUNT_ID")
 }
