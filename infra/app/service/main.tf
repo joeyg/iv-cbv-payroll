@@ -40,6 +40,15 @@ locals {
   incident_management_service_integration_config = local.environment_config.incident_management_service_integration
 
   network_config = module.project_config.network_configs[local.environment_config.network_name]
+
+  # local.service_config.secrets is a set of objects
+  # each object has a name and ssm_param_name
+  # we need to get the value of the ssm_param_name
+  # and set the value of the name to the value of the ssm_param_name
+  secrets = {
+    for secret in local.service_config.secrets :
+    secret.name => lookup(local.service_config.secrets, secret.ssm_param_name)
+  }
 }
 
 terraform {
@@ -214,5 +223,5 @@ module "new_relic" {
   source              = "../../modules/new-relic"
   app_name            = module.app_config.app_name
   environment         = var.environment_name
-  newrelic_account_id = lookup(local.service_config.secrets, "NEWRELIC_ACCOUNT_ID")
+  newrelic_account_id = lookup(local.secrets, "NEWRELIC_ACCOUNT_ID")
 }
