@@ -8,8 +8,3 @@ variable "image_tag" {
   description = "image tag to deploy to the environment"
   default     = null
 }
-
-variable "newrelic_account_id" {
-  type        = string
-  description = "New Relic account ID"
-}

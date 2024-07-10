@@ -149,7 +149,13 @@ resource "aws_iam_role_policy" "newrelic_integration_policy" {
 resource "aws_kinesis_firehose_delivery_stream" "newrelic_stream" {
   name        = "${var.app_name}-${var.environment}-newrelic-stream"
   destination = "http_endpoint"
-
+  s3_configuration {
+    role_arn           = aws_iam_role.newrelic_integration.arn
+      bucket_arn         = aws_s3_bucket.newrelic_backup_bucket.arn
+      buffering_size     = 10
+      buffering_interval = 400
+    compression_format = "GZIP"
+  }
   http_endpoint_configuration {
     url                = var.newrelic_endpoint_url
     name               = "New Relic"
@@ -158,15 +164,6 @@ resource "aws_kinesis_firehose_delivery_stream" "newrelic_stream" {
     buffering_interval = 600
     role_arn           = aws_iam_role.newrelic_integration.arn
     s3_backup_mode     = "FailedDataOnly"
-
-    s3_configuration {
-      role_arn           = aws_iam_role.newrelic_integration.arn
-      bucket_arn         = aws_s3_bucket.newrelic_backup_bucket.arn
-      buffering_size     = 10
-      buffering_interval = 400
-      compression_format = "GZIP"
-    }
-
     request_configuration {
       content_encoding = "GZIP"
     }

@@ -27,3 +27,15 @@ output "newrelic_integration_role_arn" {
   description = "ARN of the IAM role for New Relic integration"
   value       = module.new_relic.integration_role_arn
 }
+
+output "newrelic_account_id" {
+  value = module.new_relic.account_id
+}
+
+output "newrelic_api_key" {
+  value = module.new_relic.newrelic_license_key
+}
+
+output "environment_name" {
+  value =  local.tags.environment
+}

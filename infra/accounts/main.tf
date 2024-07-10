@@ -23,6 +23,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~>5.6.0"
     }
+
+    newrelic = {
+      source  = "newrelic/newrelic"
+    }
   }
 
   backend "s3" {
@@ -35,6 +39,17 @@ provider "aws" {
   default_tags {
     tags = local.tags
   }
+}
+
+provider "newrelic" {
+  account_id = lookup(module.service.local.secrets_map, "NEWRELIC_ACCOUNT_ID")
+  api_key = lookup(module.service.local.secrets_map, "NEWRELIC_KEY")
+  region = "US"
+}
+
+module "service" {
+  source = "../app/service"
+  environment_name = "dev"
 }
 
 module "project_config" {
