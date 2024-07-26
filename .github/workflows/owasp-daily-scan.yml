@@ -45,5 +45,5 @@ jobs:
         with:
           target: 'http://localhost:3000/'
           fail_action: true
-          rules_file_name: 'app/zap.conf'
-          cmd_options: -I -z \"-configfile zap_options.conf\"
+          # rules_file_name: 'app/zap.conf'
+          cmd_options: -c app/zap.confg -I -z "-configfile zap_options.conf"
