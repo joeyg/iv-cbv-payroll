@@ -1,10 +1,10 @@
 name: OWASP ZAP daily scan
 
-on:
-  schedule:
+#on:
+  #schedule:
     # cron format: 'minute hour dayofmonth month dayofweek'
     # this will run at noon UTC every day (7am EST / 8am EDT)
-    - cron: '0 12 * * *'
+    #cron: '0 12 * * *'
 
 jobs:
   owasp-scan:
